@@ -1,34 +1,24 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import UserCard from './components/UserCard';
+import { Outlet, Link } from "react-router-dom";
 
-function App() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    setLoading(true);
-    setError('');
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .finally(() => setLoading(false))
-      .then(response => response.json())
-      .then(users => setUsers(users))
-      .catch(error => setError(error.toString()))
-  }, [])
-
+export default function App() {
   return (
-    <div className="App">
-      {
-        loading ? <CircularProgress /> :
-          error ? <p style={{ color: 'red' }}>Error: { error }</p> :
-          users.map(user => (
-          <UserCard user={user} />
-        ))
-      }
-    </div>
+    <>
+      <div id="sidebar">
+        {/* other elements */}
+
+        <nav>
+          <ul>
+            <li>
+              <Link to={`users`}>users</Link>
+            </li>
+            <li>
+              <Link to={`photos`}>Photos</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* other elements */}
+      </div>
+    </>
   );
 }
-
-export default App;
